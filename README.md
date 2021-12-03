@@ -1,15 +1,15 @@
 # shared_preferences_ios_sn
-Wraps Flutter shared_preferences plugin, providing a iOS Suite Name support, it's helpful for sharing data from App to Widget.
+Wraps Flutter shared_preferences plugin and provides an iOS Suite Name support, it's helpful for sharing data from App to iOS Widget.
 
 # Why Need "Suite Name" Feature?
 
-When you need to share your data from your App to Widget
+When you need to share your data from your App to iOS Widget
 
 ## Usage
 
 ### in pubspec.yaml:
 ```
-shared_preferences_ios_sn: ^1.0.0
+shared_preferences_ios_sn: ^1.0.2
 
 #shared_preferences: x.x.x //should comment 'shared_preferences' 
 ```
@@ -29,7 +29,7 @@ prefs.setString("test_key", "test_value");
 ```
 
 
-### in Widget swift code:
+### in iOS Widget swift code:
 ```
 //now you can get the SharedPreferences data from App in your widget code, for example:
 //dont forget to add prefix "flutter." to the key:

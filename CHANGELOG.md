@@ -1,3 +1,6 @@
+## 1.0.2
+* update descriptions
+
 ## 1.0.1
 * update license
 
