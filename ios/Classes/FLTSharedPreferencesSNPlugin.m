@@ -21,7 +21,7 @@ static NSString *const CHANNEL_NAME = @"plugins.flutter.io/shared_preferences_sn
     } else if ([method isEqualToString:@"setBool"]) {
       NSString *key = arguments[@"key"];
       NSNumber *value = arguments[@"value"];
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] setBool:value.boolValue forKey:key];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] setBool:value.boolValue forKey:key];
       result(@YES);
     } else if ([method isEqualToString:@"setInt"]) {
       NSString *key = arguments[@"key"];
@@ -29,33 +29,33 @@ static NSString *const CHANNEL_NAME = @"plugins.flutter.io/shared_preferences_sn
       // int type in Dart can come to native side in a variety of forms
       // It is best to store it as is and send it back when needed.
       // Platform channel will handle the conversion.
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] setValue:value forKey:key];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] setValue:value forKey:key];
       result(@YES);
     } else if ([method isEqualToString:@"setDouble"]) {
       NSString *key = arguments[@"key"];
       NSNumber *value = arguments[@"value"];
       
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] setDouble:value.doubleValue forKey:key];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] setDouble:value.doubleValue forKey:key];
       result(@YES);
     } else if ([method isEqualToString:@"setString"]) {
       NSString *key = arguments[@"key"];
       NSString *value = arguments[@"value"];
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] setValue:value forKey:key];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] setValue:value forKey:key];
       result(@YES);
     } else if ([method isEqualToString:@"setStringList"]) {
       NSString *key = arguments[@"key"];
       NSArray *value = arguments[@"value"];
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] setValue:value forKey:key];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] setValue:value forKey:key];
       result(@YES);
     } else if ([method isEqualToString:@"commit"]) {
       // synchronize is deprecated.
       // "this method is unnecessary and shouldn't be used."
       result(@YES);
     } else if ([method isEqualToString:@"remove"]) {
-      [[[NSUserDefaults alloc] initWithSuiteName:suiteName] removeObjectForKey:arguments[@"key"]];
+      [[[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName] removeObjectForKey:arguments[@"key"]];
       result(@YES);
     } else if ([method isEqualToString:@"clear"]) {
-      NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
+      NSUserDefaults *defaults = [[NSUserDefaults standardUserDefaults] initWithSuiteName:suiteName];
       for (NSString *key in getAllPrefs(suiteName)) {
         [defaults removeObjectForKey:key];
       }
@@ -69,8 +69,9 @@ static NSString *const CHANNEL_NAME = @"plugins.flutter.io/shared_preferences_sn
 #pragma mark - Private
 
 static NSMutableDictionary *getAllPrefs(NSString *suiteName) {
-  NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-  NSDictionary *prefs = [[[NSUserDefaults alloc] initWithSuiteName:suiteName] persistentDomainForName:appDomain];
+  //NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+  NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:suiteName];
+
   NSMutableDictionary *filteredPrefs = [NSMutableDictionary dictionary];
   if (prefs != nil) {
     for (NSString *candidateKey in prefs) {
@@ -79,6 +80,7 @@ static NSMutableDictionary *getAllPrefs(NSString *suiteName) {
       }
     }
   }
+
   return filteredPrefs;
 }
 

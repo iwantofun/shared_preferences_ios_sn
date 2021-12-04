@@ -2,7 +2,7 @@ name: shared_preferences_ios_sn
 description: Simply to wrap the Flutter plugin shared_preferences plugin and provide iOS "suite name" feature
 repository: https://github.com/iwantofun/shared_preferences_ios_sn
 issue_tracker: https://github.com/iwantofun/shared_preferences_ios_sn/issues
-version: 1.0.2
+version: 1.0.3
 
 environment:
   sdk: ">=2.14.0 <3.0.0"

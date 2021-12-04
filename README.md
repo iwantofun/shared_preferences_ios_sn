@@ -9,7 +9,7 @@ When you need to share your data from your App to iOS Widget
 
 ### in pubspec.yaml:
 ```
-shared_preferences_ios_sn: ^1.0.2
+shared_preferences_ios_sn: ^1.0.3
 
 #shared_preferences: x.x.x //should comment 'shared_preferences' 
 ```
@@ -22,7 +22,7 @@ flutter pub get
 ```
 //final prefs = SharedPreferences.getInstance();
 
-//use this to instead of above, prefs will works like a normal SharedPreferences instance in many different platforms.
+//Instead, use SPUtil.withSuitName and prefs will works like a normal SharedPreferences instance in many different platforms.
 final prefs = await SPUtil.withSuitName("<Your iOS GROUP NAME>");
 prefs.setString("test_key", "test_value");
 
